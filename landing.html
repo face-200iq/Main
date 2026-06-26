@@ -1,0 +1,1713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>TrenchPad — Bloomberg Terminal for Memecoins</title>
+<meta name="description" content="Solana memecoin intelligence platform. Real-time ranked leaderboard, AI narrative analysis, rug risk scoring, wallet tracker & Chrome extension. Launching July 3rd.">
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="https://trenchpad.com" />
+<meta property="og:title" content="TrenchPad — Bloomberg Terminal for Memecoins" />
+<meta property="og:description" content="Real-time ranked memecoin leaderboard, AI narrative analysis, rug risk scoring & wallet tracker. Launching July 3rd." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://trenchpad.com" />
+<meta property="og:image" content="https://trenchpad.com/og-image.png" />
+<meta property="og:locale" content="en_US" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="TrenchPad — Bloomberg Terminal for Memecoins" />
+<meta name="twitter:description" content="Real-time ranked memecoin leaderboard, AI narrative analysis, rug risk scoring & wallet tracker." />
+<meta name="twitter:image" content="https://trenchpad.com/og-image.png" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "TrenchPad",
+  "url": "https://trenchpad.com",
+  "description": "Solana Meme Coin Intelligence Platform — Scanner, Wallet Tracker, AI Analyse & RANKED System.",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+</script>
+<style>
+/* ═══════════════════════════════════════════
+   ROOT & RESET
+   ═══════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#06080e;
+  --surface:#0b0f19;
+  --surface2:#111827;
+  --surface3:#1a2235;
+  --border:rgba(255,255,255,0.06);
+  --border-light:rgba(255,255,255,0.1);
+  --green:#00ffa3;
+  --green-glow:rgba(0,255,163,0.12);
+  --green-dim:rgba(0,255,163,0.06);
+  --green-subtle:rgba(0,255,163,0.03);
+  --text:#f0f6fc;
+  --text-secondary:#b0b8c5;
+  --muted:#7d8590;
+  --muted2:#3d4450;
+  --discord:#5865F2;
+  --twitter:#1d9bf0;
+  --tiktok:#ff0050;
+  --red:#ff4060;
+  --amber:#ffaa00;
+  --blue:#4080ff;
+  --radius:12px;
+  --radius-lg:16px;
+  --radius-xl:20px;
+  --font-display:'Space Grotesk',system-ui,sans-serif;
+  --font-mono:'Space Mono','SF Mono',monospace;
+  --font-body:'Inter','Space Grotesk',system-ui,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--font-display);
+  min-height:100vh;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+/* ═══════════════════════════════════════════
+   GRID BACKGROUND
+   ═══════════════════════════════════════════ */
+.grid-bg{
+  position:fixed;inset:0;
+  background-image:linear-gradient(rgba(0,255,163,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,163,0.02) 1px,transparent 1px);
+  background-size:48px 48px;
+  pointer-events:none;z-index:0;
+}
+.ambient-glow{
+  position:fixed;top:-400px;left:50%;transform:translateX(-50%);
+  width:1000px;height:600px;
+  background:radial-gradient(ellipse,rgba(0,255,163,0.05) 0%,transparent 70%);
+  pointer-events:none;z-index:0;
+}
+.ambient-glow-2{
+  position:fixed;bottom:-300px;right:-200px;
+  width:700px;height:500px;
+  background:radial-gradient(ellipse,rgba(64,128,255,0.04) 0%,transparent 70%);
+  pointer-events:none;z-index:0;
+}
+
+/* ═══════════════════════════════════════════
+   NAV
+   ═══════════════════════════════════════════ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:16px 24px;
+  display:flex;align-items:center;justify-content:space-between;
+  max-width:1200px;margin:0 auto;
+  background:linear-gradient(180deg,rgba(6,8,14,.95) 0%,transparent 100%);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+}
+.nav-logo{
+  display:flex;align-items:center;gap:10px;
+  text-decoration:none;color:var(--text);
+}
+.nav-logo-mark{
+  width:32px;height:32px;
+  background:var(--green-dim);
+  border:1px solid rgba(0,255,163,0.2);
+  border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+}
+.nav-logo-mark svg{width:16px;height:16px;fill:var(--green)}
+.nav-logo-text{
+  font-family:var(--font-mono);
+  font-size:14px;font-weight:700;
+  letter-spacing:.12em;
+}
+.nav-links{display:flex;align-items:center;gap:24px}
+.nav-links a{
+  color:var(--muted);text-decoration:none;
+  font-size:13px;font-weight:500;
+  transition:color .2s;
+}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{
+  background:var(--green);color:var(--bg);
+  border:none;border-radius:8px;
+  padding:8px 18px;
+  font-family:var(--font-display);
+  font-size:13px;font-weight:600;
+  cursor:pointer;transition:opacity .2s,transform .1s;
+}
+.nav-cta:hover{opacity:.88}
+.nav-cta:active{transform:scale(.97)}
+
+/* ═══════════════════════════════════════════
+   PAGE CONTAINER
+   ═══════════════════════════════════════════ */
+.page{position:relative;z-index:1}
+
+/* ═══════════════════════════════════════════
+   HERO
+   ═══════════════════════════════════════════ */
+.hero{
+  max-width:1200px;margin:0 auto;
+  padding:140px 24px 80px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:80px;
+  align-items:center;
+  min-height:100vh;
+}
+.hero-left{display:flex;flex-direction:column;gap:0}
+.hero-pill{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--green-dim);
+  border:1px solid rgba(0,255,163,0.15);
+  border-radius:999px;padding:5px 14px;
+  font-size:11px;font-weight:500;color:var(--green);
+  letter-spacing:.06em;text-transform:uppercase;
+  width:fit-content;margin-bottom:20px;
+  opacity:0;animation:fadeUp .6s ease .1s forwards;
+  will-change:transform,opacity;
+}
+.pill-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s ease infinite}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(255,64,96,.08);
+  border:1px solid rgba(255,64,96,.2);
+  border-radius:999px;padding:4px 12px 4px 4px;
+  font-size:11px;font-weight:500;color:var(--red);
+  letter-spacing:.04em;
+  width:fit-content;margin-bottom:16px;
+  opacity:0;animation:fadeUp .6s ease .15s forwards;
+  will-change:transform,opacity;
+}
+.hero-badge span{
+  background:var(--red);color:#fff;
+  border-radius:999px;padding:2px 8px;
+  font-size:10px;font-weight:700;
+}
+.hero h1{
+  font-size:clamp(40px,5.5vw,62px);
+  font-weight:700;line-height:1.05;
+  letter-spacing:-.03em;
+  margin-bottom:16px;
+  opacity:0;animation:fadeUp .6s ease .2s forwards;
+  will-change:transform,opacity;
+}
+.hero h1 .green{color:var(--green)}
+.hero h1 .accent{background:linear-gradient(135deg,var(--green),#40c0ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{
+  font-size:16px;color:var(--muted);line-height:1.7;
+  max-width:460px;margin-bottom:28px;
+  opacity:0;animation:fadeUp .6s ease .25s forwards;
+  will-change:transform,opacity;
+}
+
+/* Countdown */
+.hero-countdown{
+  display:flex;gap:10px;margin-bottom:32px;
+  opacity:0;animation:fadeUp .6s ease .3s forwards;
+  will-change:transform,opacity;
+}
+.cd-block{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:12px 14px;min-width:62px;
+  text-align:center;
+}
+.cd-num{
+  font-family:var(--font-mono);
+  font-size:24px;font-weight:700;color:var(--text);
+  line-height:1;display:block;
+  transition:transform .3s ease;
+}
+.cd-num.flip{transform:rotateX(90deg)}
+.cd-lbl{
+  font-size:9px;color:var(--muted2);
+  text-transform:uppercase;letter-spacing:.12em;
+  font-weight:500;margin-top:4px;display:block;
+}
+.cd-sep{
+  font-family:var(--font-mono);
+  font-size:20px;color:var(--muted2);
+  align-self:center;padding-bottom:14px;
+}
+
+/* Social Proof */
+.social-proof{
+  display:flex;align-items:center;gap:12px;
+  margin-bottom:28px;
+  opacity:0;animation:fadeUp .6s ease .35s forwards;
+  will-change:transform,opacity;
+}
+.social-avatars{display:flex}
+.social-avatars .av{
+  width:32px;height:32px;border-radius:50%;
+  border:2px solid var(--bg);
+  margin-right:-8px;
+  background:var(--surface3);
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:600;color:var(--muted);
+}
+.social-proof-text{font-size:13px;color:var(--muted);line-height:1.4}
+.social-proof-text strong{color:var(--green);font-weight:500}
+
+/* Email Form */
+.hero-email{opacity:0;animation:fadeUp .6s ease .4s forwards;will-change:transform,opacity}
+.hero-email-note{font-size:13px;color:var(--muted);margin-bottom:10px}
+.hero-email-note strong{color:var(--green);font-weight:500}
+.email-row{display:flex;gap:8px;max-width:420px}
+.email-input{
+  flex:1;background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:13px 16px;
+  font-family:var(--font-body);font-size:14px;
+  color:var(--text);outline:none;
+  transition:border-color .2s;
+}
+.email-input::placeholder{color:var(--muted2)}
+.email-input:focus{border-color:rgba(0,255,163,0.3);box-shadow:0 0 0 3px var(--green-dim)}
+.email-btn{
+  background:var(--green);color:var(--bg);
+  border:none;border-radius:var(--radius);
+  padding:13px 22px;
+  font-family:var(--font-display);
+  font-size:14px;font-weight:600;
+  cursor:pointer;white-space:nowrap;
+  transition:opacity .2s,transform .1s,box-shadow .2s;
+}
+.email-btn:hover{opacity:.92;box-shadow:0 0 20px var(--green-glow)}
+.email-btn:active{transform:scale(.97)}
+.email-btn:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
+.email-success{
+  display:none;font-size:14px;
+  color:var(--green);padding:13px 16px;
+  background:var(--green-dim);border:1px solid rgba(0,255,163,0.2);
+  border-radius:var(--radius);max-width:420px;
+}
+.email-error{
+  display:none;font-size:13px;
+  color:var(--red);padding:10px 14px;
+  background:rgba(255,64,96,.08);border:1px solid rgba(255,64,96,.2);
+  border-radius:var(--radius);max-width:420px;margin-top:8px;
+}
+.email-fine{font-size:11px;color:var(--muted2);margin-top:6px}
+
+.hero-social{
+  display:flex;align-items:center;gap:12px;
+  margin-top:20px;
+  opacity:0;animation:fadeUp .6s ease .45s forwards;
+  will-change:transform,opacity;
+}
+.hero-social-label{
+  font-size:11px;color:var(--muted2);
+  font-family:var(--font-mono);letter-spacing:.06em;
+  text-transform:uppercase;
+}
+.hero-social-icons{display:flex;align-items:center;gap:8px}
+.hs-icon{
+  width:32px;height:32px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--surface2);
+  border:1px solid var(--border);
+  transition:all .2s;
+}
+.hs-icon svg{width:14px;height:14px;fill:currentColor}
+.hs-icon.discord{color:var(--discord)}
+.hs-icon.twitter{color:var(--twitter)}
+.hs-icon.tiktok{color:var(--tiktok)}
+.hs-icon:hover{
+  transform:translateY(-2px);
+  border-color:var(--border-light);
+  box-shadow:0 4px 16px rgba(0,0,0,.3);
+}
+
+/* ═══════════════════════════════════════════
+   HERO RIGHT — APP PREVIEW
+   ═══════════════════════════════════════════ */
+.hero-right{
+  position:relative;
+  opacity:0;animation:fadeRight .8s ease .3s forwards;
+  will-change:transform,opacity;
+}
+.preview-frame{
+  background:var(--surface);
+  border-radius:var(--radius-lg);
+  border:1px solid var(--border-light);
+  overflow:hidden;
+  box-shadow:0 0 80px rgba(0,255,163,0.04),0 30px 80px rgba(0,0,0,.5);
+}
+.preview-topbar{
+  background:var(--surface2);
+  border-bottom:1px solid var(--border);
+  padding:12px 16px;
+  display:flex;align-items:center;gap:8px;
+}
+.preview-dot{width:10px;height:10px;border-radius:50%}
+.preview-dot:nth-child(1){background:#ff5f56}
+.preview-dot:nth-child(2){background:#ffbd2e}
+.preview-dot:nth-child(3){background:#27c93f}
+.preview-url{
+  flex:1;background:rgba(255,255,255,0.04);
+  border-radius:6px;padding:5px 10px;
+  font-size:11px;color:var(--muted);
+  font-family:var(--font-mono);
+  margin-left:8px;
+}
+
+/* Leaderboard mockup */
+.preview-body{padding:16px}
+.preview-header{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:12px;
+}
+.preview-header h3{
+  font-size:13px;font-weight:600;letter-spacing:.02em;
+  color:var(--text-secondary);
+}
+.preview-header .status{
+  font-size:10px;font-family:var(--font-mono);
+  color:var(--green);
+  background:var(--green-dim);
+  padding:3px 8px;border-radius:999px;
+}
+.preview-table{width:100%;border-collapse:collapse}
+.preview-table th{
+  font-size:9px;text-transform:uppercase;letter-spacing:.1em;
+  color:var(--muted2);font-weight:500;
+  text-align:left;padding:6px 4px;
+  border-bottom:1px solid var(--border);
+}
+.preview-table td{
+  font-size:12px;padding:8px 4px;
+  border-bottom:1px solid var(--border);
+  color:var(--text-secondary);
+}
+.preview-table tr:last-child td{border-bottom:none}
+.preview-table .rank-cell{color:var(--muted2);font-family:var(--font-mono);font-size:10px;width:28px}
+.rank-cell.gold{color:#ffaa00}
+.rank-cell.silver{color:#c0c0c0}
+.rank-cell.bronze{color:#cd7f32}
+.preview-table .name-cell{font-weight:600;color:var(--text)}
+.preview-table .name-cell .ticker{color:var(--muted2);font-weight:400;font-size:10px}
+.preview-table .score-cell{color:var(--green);font-family:var(--font-mono);font-size:11px}
+.preview-table .narrative-cell{font-size:10px}
+.preview-table .narrative-tag{
+  background:var(--green-dim);color:var(--green);
+  padding:2px 6px;border-radius:4px;font-size:9px;
+}
+.preview-table .narrative-tag.meme{background:rgba(255,64,96,.1);color:var(--red)}
+.preview-table .narrative-tag.ai{background:rgba(64,128,255,.1);color:var(--blue)}
+.preview-table .narrative-tag.defi{background:rgba(255,170,0,.1);color:var(--amber)}
+.preview-table .narrative-tag.gaming{background:rgba(128,64,255,.1);color:#8040ff}
+.preview-table .vol-cell{font-family:var(--font-mono);font-size:10px;color:var(--muted)}
+.preview-table .change-cell{font-family:var(--font-mono);font-size:10px}
+.change-cell.up{color:var(--green)}
+.change-cell.down{color:var(--red)}
+.preview-table .action-cell a{
+  color:var(--muted2);text-decoration:none;
+  font-size:11px;transition:color .2s;
+}
+.preview-table .action-cell a:hover{color:var(--green)}
+.view-all-btn{
+  display:block;
+  text-align:center;padding:12px;margin-top:8px;
+  border:1px dashed var(--border);border-radius:var(--radius);
+  color:var(--muted);font-size:12px;font-weight:500;
+  text-decoration:none;transition:all .2s;
+}
+.view-all-btn:hover{border-color:var(--green);color:var(--green);background:var(--green-dim)}
+
+/* ═══════════════════════════════════════════
+   SECTION COMMON
+   ═══════════════════════════════════════════ */
+section{padding:100px 24px}
+.section-inner{
+  max-width:1100px;margin:0 auto;
+}
+.section-label{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:11px;font-weight:500;color:var(--green);
+  text-transform:uppercase;letter-spacing:.1em;
+  margin-bottom:12px;
+  font-family:var(--font-mono);
+}
+.section-label::before{
+  content:'';width:16px;height:1px;background:var(--green);
+}
+.section-title{
+  font-size:clamp(28px,3.5vw,40px);
+  font-weight:700;letter-spacing:-.02em;
+  margin-bottom:16px;
+}
+.section-title .gradient{
+  background:linear-gradient(135deg,var(--green),#40c0ff);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.section-sub{
+  font-size:15px;color:var(--muted);
+  max-width:560px;line-height:1.7;
+  margin-bottom:48px;
+}
+
+/* ═══════════════════════════════════════════
+   FEATURES GRID
+   ═══════════════════════════════════════════ */
+.features-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+.feature-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  padding:28px 24px;
+  transition:border-color .3s,transform .3s,box-shadow .3s;
+  opacity:0;transform:translateY(30px);
+  will-change:transform,opacity,border-color,box-shadow;
+}
+.feature-card.visible{opacity:1;transform:translateY(0)}
+.feature-card:hover{
+  border-color:rgba(0,255,163,0.2);
+  transform:translateY(-4px);
+  box-shadow:0 12px 40px rgba(0,255,163,0.04);
+}
+.feature-card-icon{
+  width:44px;height:44px;
+  background:var(--green-dim);
+  border:1px solid rgba(0,255,163,0.15);
+  border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:16px;
+  font-size:20px;
+}
+.feature-card h3{
+  font-size:17px;font-weight:600;
+  margin-bottom:8px;
+}
+.feature-card p{
+  font-size:13px;color:var(--muted);
+  line-height:1.6;
+}
+
+/* ═══════════════════════════════════════════
+   AI ENGINE SECTION
+   ═══════════════════════════════════════════ */
+.ai-section{background:var(--surface);margin-top:40px}
+.ai-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:24px;
+  align-items:center;
+}
+.ai-visual{
+  position:relative;
+  background:var(--surface2);
+  border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  padding:24px;
+  min-height:360px;
+  display:flex;flex-direction:column;
+  justify-content:center;
+  overflow:hidden;
+}
+.ai-visual::before{
+  content:'';
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 0%,rgba(0,255,163,0.03) 0%,transparent 60%);
+  pointer-events:none;
+}
+.ai-scan-line{
+  position:absolute;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--green),transparent);
+  animation:scanLine 3s ease-in-out infinite;
+  pointer-events:none;
+}
+@keyframes scanLine{
+  0%{top:10%}
+  50%{top:70%}
+  100%{top:10%}
+}
+.ai-metric{
+  display:flex;align-items:center;gap:16px;
+  padding:16px;margin-bottom:8px;
+  background:rgba(255,255,255,0.02);
+  border-radius:var(--radius);
+  border:1px solid var(--border);
+  position:relative;z-index:1;
+}
+.ai-metric-label{font-size:12px;color:var(--muted);flex:1}
+.ai-metric-value{
+  font-family:var(--font-mono);font-size:14px;
+  font-weight:700;
+}
+.ai-metric-bar{
+  width:120px;height:4px;
+  background:var(--surface3);border-radius:999px;
+  overflow:hidden;
+}
+.ai-metric-fill{
+  height:100%;border-radius:999px;
+  background:linear-gradient(90deg,var(--green),#40c0ff);
+  transition:width 1.5s ease;
+}
+.ai-metric-fill.risk{background:linear-gradient(90deg,#ffaa00,var(--red))}
+.ai-metric-fill.social{background:linear-gradient(90deg,var(--green),#40ff80)}
+.ai-card-list{display:flex;flex-direction:column;gap:16px}
+.ai-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:20px;
+  transition:border-color .3s,transform .3s;
+  opacity:0;transform:translateX(20px);
+  will-change:transform,opacity;
+}
+.ai-card.visible{opacity:1;transform:translateX(0)}
+.ai-card:hover{border-color:rgba(0,255,163,0.2);transform:translateX(4px)}
+.ai-card h4{font-size:14px;font-weight:600;margin-bottom:4px}
+.ai-card p{font-size:12px;color:var(--muted);line-height:1.5}
+
+/* ═══════════════════════════════════════════
+   EXTENSION SECTION
+   ═══════════════════════════════════════════ */
+.ext-browser-wrap{
+  position:relative;
+  border-radius:var(--radius-lg);
+  overflow:hidden;
+  border:1px solid var(--border-light);
+  box-shadow:0 0 60px rgba(0,255,163,0.03),0 20px 60px rgba(0,0,0,.4);
+}
+.ext-content{
+  display:grid;
+  grid-template-columns:1.1fr 0.9fr;
+  gap:40px;
+  align-items:center;
+}
+.ext-left{
+  background:var(--surface2);
+  border-radius:var(--radius-lg);
+  border:1px solid var(--border);
+  overflow:hidden;
+}
+.ext-browser-bar{
+  background:var(--surface);
+  border-bottom:1px solid var(--border);
+  padding:10px 14px;
+  display:flex;align-items:center;gap:8px;
+}
+.ext-browser-dot{width:10px;height:10px;border-radius:50%}
+.ext-browser-dot:nth-child(1){background:#ff5f56}
+.ext-browser-dot:nth-child(2){background:#ffbd2e}
+.ext-browser-dot:nth-child(3){background:#27c93f}
+.ext-browser-url{
+  flex:1;background:rgba(255,255,255,0.04);
+  border-radius:6px;padding:5px 10px;
+  font-size:10px;color:var(--muted);
+  font-family:var(--font-mono);
+  margin-left:8px;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.ext-preview-body{
+  padding:20px;
+  display:flex;flex-direction:column;gap:16px;
+}
+.ext-row{
+  display:flex;align-items:center;gap:12px;
+  padding:10px 12px;
+  background:rgba(255,255,255,0.02);
+  border-radius:var(--radius);
+  border:1px solid var(--border);
+}
+.ext-row-coin-icon{
+  width:28px;height:28px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;font-weight:700;
+}
+.ext-row-coin-icon.green{background:rgba(0,255,163,.15);color:var(--green)}
+.ext-row-coin-icon.red{background:rgba(255,64,96,.15);color:var(--red)}
+.ext-row-coin-icon.amber{background:rgba(255,170,0,.15);color:var(--amber)}
+.ext-row-coin-icon.blue{background:rgba(64,128,255,.15);color:var(--blue)}
+.ext-row-info{flex:1}
+.ext-row-name{font-size:12px;font-weight:600}
+.ext-row-ticker{font-size:10px;color:var(--muted2)}
+.ext-row-badge{
+  font-size:10px;padding:2px 8px;border-radius:999px;
+  font-weight:500;
+}
+.ext-row-badge.safe{background:var(--green-dim);color:var(--green)}
+.ext-row-badge.caution{background:rgba(255,170,0,.1);color:var(--amber)}
+.ext-row-badge.risk{background:rgba(255,64,96,.1);color:var(--red)}
+.ext-row-score{
+  font-family:var(--font-mono);font-size:10px;color:var(--muted);
+  text-align:right;
+}
+.ext-features-list{display:flex;flex-direction:column;gap:14px}
+.ext-feature-item{
+  display:flex;align-items:flex-start;gap:12px;
+  opacity:0;transform:translateX(20px);
+  will-change:transform,opacity;
+}
+.ext-feature-item.visible{opacity:1;transform:translateX(0)}
+.ext-feature-check{
+  width:22px;height:22px;border-radius:50%;
+  background:var(--green-dim);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;margin-top:2px;
+}
+.ext-feature-check svg{width:11px;height:11px;fill:var(--green)}
+.ext-feature-text h4{font-size:14px;font-weight:600;margin-bottom:2px}
+.ext-feature-text p{font-size:12px;color:var(--muted);line-height:1.5}
+.ext-cta{
+  display:inline-flex;align-items:center;gap:8px;
+  margin-top:16px;
+  background:var(--green);color:var(--bg);
+  border:none;border-radius:var(--radius);
+  padding:12px 24px;
+  font-family:var(--font-display);
+  font-size:14px;font-weight:600;
+  cursor:pointer;text-decoration:none;
+  transition:opacity .2s,transform .1s,box-shadow .2s;
+  width:fit-content;
+}
+.ext-cta:hover{opacity:.92;box-shadow:0 0 20px var(--green-glow)}
+.ext-cta:active{transform:scale(.97)}
+
+/* ═══════════════════════════════════════════
+   SOCIAL / FOOTER
+   ═══════════════════════════════════════════ */
+.social-section{background:var(--surface);margin-top:40px}
+.social-inner{
+  display:flex;flex-direction:column;align-items:center;
+  text-align:center;gap:24px;
+}
+.social-inner h2{font-size:clamp(24px,3vw,36px);font-weight:700}
+.social-inner p{color:var(--muted);font-size:14px;max-width:400px;line-height:1.6}
+.social-buttons{
+  display:flex;gap:12px;flex-wrap:wrap;justify-content:center;
+}
+.social-btn{
+  display:flex;align-items:center;gap:10px;
+  padding:12px 20px;
+  background:var(--surface2);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  text-decoration:none;color:var(--text);
+  font-size:13px;font-weight:500;
+  transition:all .2s;
+}
+.social-btn:hover{background:var(--surface3);border-color:var(--border-light);transform:translateY(-2px)}
+.social-btn svg{width:16px;height:16px;fill:currentColor}
+.social-btn.discord{color:var(--discord)}
+.social-btn.twitter{color:var(--twitter)}
+.social-btn.tiktok{color:var(--tiktok)}
+
+.footer-bottom{
+  text-align:center;padding:32px 24px;
+  font-size:11px;color:var(--muted2);
+  border-top:1px solid var(--border);
+  margin-top:40px;
+}
+.footer-bottom a{color:var(--muted);text-decoration:none}
+.footer-bottom a:hover{color:var(--green)}
+
+/* ═══════════════════════════════════════════
+   ANIMATIONS
+   ═══════════════════════════════════════════ */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeRight{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:translateX(0)}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════ */
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;gap:48px;padding:120px 20px 60px;min-height:auto}
+  .hero-right{order:-1}
+  .features-grid{grid-template-columns:1fr 1fr}
+  .ai-grid{grid-template-columns:1fr}
+  .ext-content{grid-template-columns:1fr;gap:32px}
+  .nav-links{display:none}
+}
+@media(max-width:600px){
+  .hero{padding:100px 16px 40px}
+  .hero h1{font-size:32px}
+  .hero-sub{font-size:14px}
+  .email-row{flex-direction:column}
+  .hero-countdown{gap:6px}
+  .cd-block{padding:10px 10px;min-width:52px}
+  .cd-num{font-size:20px}
+  .cd-lbl{font-size:8px}
+  .features-grid{grid-template-columns:1fr}
+  .social-buttons{flex-direction:column;align-items:stretch}
+  .preview-table .vol-cell,.preview-table .change-cell{display:none}
+  section{padding:60px 16px}
+  .nav-cta{display:none}
+}
+
+/* ═══════════════════════════════════════════
+   LAUNCHED STATE (hidden by default, toggled by JS)
+   ═══════════════════════════════════════════ */
+.launched-only{display:none}
+
+/* ═══════════════════════════════════════════
+   CLASSIFIED / PREMIUM OVERLAY
+   ═══════════════════════════════════════════ */
+.preview-body{position:relative}
+.leaderboard-blur{filter:blur(6px);-webkit-filter:blur(6px);user-select:none;pointer-events:none;transition:filter .5s}
+.classified-overlay{
+  position:absolute;inset:0;z-index:5;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:linear-gradient(180deg,rgba(6,8,14,0.1) 0%,rgba(6,8,14,0.8) 40%,rgba(6,8,14,0.95) 100%);
+  padding:24px;text-align:center;
+}
+.classified-overlay .lock-icon{font-size:40px;margin-bottom:10px;opacity:.9}
+.classified-overlay h4{font-size:17px;font-weight:700;margin-bottom:6px;color:var(--text)}
+.classified-overlay p{font-size:13px;color:var(--muted);margin-bottom:18px;max-width:260px;line-height:1.6}
+.unlock-btn{
+  background:var(--green);color:var(--bg);
+  border:none;border-radius:8px;padding:11px 28px;
+  font-family:var(--font-display);font-size:13px;font-weight:600;
+  cursor:pointer;transition:all .25s;
+}
+.unlock-btn:hover{opacity:.92;box-shadow:0 0 25px var(--green-glow);transform:scale(1.03)}
+.unlock-btn:active{transform:scale(.97)}
+.classified-stamp{
+  position:absolute;top:16px;right:-32px;z-index:6;
+  background:var(--red);color:#fff;
+  font-family:var(--font-mono);font-size:9px;font-weight:700;
+  padding:3px 40px;transform:rotate(45deg);
+  letter-spacing:.15em;pointer-events:none;
+}
+.classified-badge{
+  display:inline-flex;align-items:center;gap:5px;
+  background:rgba(255,64,96,.12);
+  border:1px solid rgba(255,64,96,.25);
+  border-radius:6px;padding:3px 10px;
+  font-size:9px;font-weight:700;color:var(--red);
+  font-family:var(--font-mono);letter-spacing:.08em;
+}
+.status-badge{
+  display:inline-block;
+  font-family:var(--font-mono);font-size:8px;font-weight:600;
+  color:var(--green);background:var(--green-dim);
+  border:1px solid rgba(0,255,163,0.2);
+  padding:3px 10px;border-radius:6px;
+  letter-spacing:.04em;white-space:nowrap;
+}
+
+/* Mystery Panel (Hero Right) */
+.preview-body-mystery{
+  background:linear-gradient(180deg,var(--surface),rgba(6,8,14,0.95));
+  min-height:340px;display:flex;flex-direction:column;
+}
+.mystery-panel{
+  flex:1;display:flex;flex-direction:column;gap:12px;
+  padding:4px 0 16px;
+}
+.mystery-panel-header{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:4px;
+}
+.mystery-panel-label{
+  font-size:10px;color:var(--muted2);
+  font-family:var(--font-mono);letter-spacing:.06em;
+  text-transform:uppercase;
+}
+.mystery-bars{display:flex;flex-direction:column;gap:8px}
+.mystery-bar-row{
+  height:18px;background:rgba(255,255,255,0.03);
+  border-radius:4px;overflow:hidden;
+}
+.mystery-bar{
+  height:100%;border-radius:4px;
+  background:linear-gradient(90deg,rgba(0,255,163,0.06),rgba(0,255,163,0.12));
+  filter:blur(4px);-webkit-filter:blur(4px);
+}
+.mystery-footer{
+  display:flex;gap:8px;margin-top:4px;
+}
+.mystery-footer-item{
+  font-size:8px;color:var(--muted2);
+  font-family:var(--font-mono);letter-spacing:.06em;
+  text-transform:uppercase;
+  background:rgba(255,255,255,0.02);
+  padding:4px 8px;border-radius:4px;
+  border:1px solid var(--border);
+}
+.mystery-badge-row{
+  display:flex;gap:8px;flex-wrap:wrap;
+  padding:12px 0 8px;
+  border-top:1px solid var(--border);
+}
+.mystery-badge-row span{
+  font-size:8px;color:var(--muted2);
+  font-family:var(--font-mono);letter-spacing:.06em;
+  background:rgba(255,255,255,0.02);
+  padding:4px 8px;border-radius:4px;
+  border:1px solid var(--border);
+}
+
+/* ═══════════════════════════════════════════
+   TIMELINE / ROADMAP
+   ═══════════════════════════════════════════ */
+.roadmap-scroll{overflow-x:auto;padding-bottom:16px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.roadmap-scroll::-webkit-scrollbar{display:none}
+.roadmap-path{
+  display:flex;gap:0;min-width:720px;
+  position:relative;padding:48px 0 24px;
+}
+.roadmap-path::before{
+  content:'';position:absolute;top:68px;left:40px;right:40px;
+  height:2px;z-index:0;
+  background:linear-gradient(90deg,var(--green) 0%,var(--surface3) 50%,var(--surface3) 100%);
+}
+.path-node{
+  flex:1;position:relative;z-index:1;
+  display:flex;flex-direction:column;align-items:center;
+  padding:0 12px;
+  opacity:0;transform:translateY(24px);
+  will-change:transform,opacity;
+}
+.path-node.visible{opacity:1;transform:translateY(0)}
+.node-dot{
+  width:56px;height:56px;border-radius:50%;
+  background:var(--surface2);
+  border:2px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:14px;position:relative;
+  transition:all .4s cubic-bezier(.22,1,.36,1);
+}
+.node-dot .node-icon{font-size:20px;opacity:.4;transition:opacity .4s}
+.path-node.active .node-dot{
+  background:rgba(0,255,163,0.08);
+  border-color:var(--green);
+  box-shadow:0 0 24px var(--green-glow);
+}
+.path-node.active .node-dot .node-icon{opacity:1}
+.path-node.active .node-info h4{color:var(--green)}
+.path-node:hover .node-dot{
+  transform:scale(1.08);
+  border-color:rgba(0,255,163,0.3);
+}
+.node-info{text-align:center}
+.node-info h4{font-size:13px;font-weight:600;margin-bottom:2px;color:var(--text);transition:color .3s}
+.node-badge{
+  display:inline-block;font-family:var(--font-mono);
+  font-size:7px;font-weight:700;padding:2px 8px;
+  border-radius:4px;letter-spacing:.06em;
+  margin:6px 0 2px;text-transform:uppercase;
+}
+.node-badge.launch{background:var(--green-dim);color:var(--green);border:1px solid rgba(0,255,163,0.2)}
+.node-badge.testing{background:rgba(255,170,0,.1);color:var(--amber);border:1px solid rgba(255,170,0,.2)}
+.node-badge.dev{background:rgba(64,128,255,.1);color:var(--blue);border:1px solid rgba(64,128,255,.2)}
+.node-badge.soon{background:rgba(255,255,255,0.04);color:var(--muted);border:1px solid var(--border)}
+.node-badge.classified{background:rgba(255,64,96,.1);color:var(--red);border:1px solid rgba(255,64,96,.2)}
+.node-info .node-phase{
+  font-size:9px;color:var(--muted2);font-family:var(--font-mono);
+  letter-spacing:.08em;margin-bottom:4px;
+}
+.node-info .node-date{font-size:10px;color:var(--muted);font-family:var(--font-mono)}
+.node-features{display:flex;flex-direction:column;align-items:center;gap:4px;margin-top:10px}
+.node-features span{font-size:9px;color:var(--muted2);display:flex;align-items:center;gap:4px;font-family:var(--font-mono)}
+.node-features span svg{width:10px;height:10px;fill:var(--green)}
+
+/* ═══════════════════════════════════════════
+   MYSTERY / CLASSIFIED SECTION
+   ═══════════════════════════════════════════ */
+.mystery-section{margin-top:40px}
+.mystery-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+}
+.mystery-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  padding:28px 24px;
+  position:relative;overflow:hidden;
+  text-align:center;
+  transition:border-color .4s,transform .4s,box-shadow .4s;
+  opacity:0;transform:translateY(24px);
+  will-change:transform,opacity;
+}
+.mystery-card.visible{opacity:1;transform:translateY(0)}
+.mystery-card:hover{
+  border-color:rgba(0,255,163,0.15);
+  transform:translateY(-3px);
+  box-shadow:0 16px 48px rgba(0,255,163,0.04);
+}
+.mystery-card::before{
+  content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(45deg,transparent,transparent 12px,rgba(0,255,163,0.015) 12px,rgba(0,255,163,0.015) 13px);
+  pointer-events:none;
+}
+.mystery-card::after{
+  content:'🔒';position:absolute;top:12px;right:12px;
+  font-size:14px;opacity:.4;
+}
+.mystery-icon{font-size:28px;margin-bottom:10px;display:block}
+.mystery-classified-tag{
+  display:inline-block;
+  font-family:var(--font-mono);font-size:8px;font-weight:700;
+  color:var(--red);background:rgba(255,64,96,.1);
+  border:1px solid rgba(255,64,96,.2);
+  padding:2px 10px;border-radius:4px;
+  letter-spacing:.12em;margin-bottom:12px;
+  text-transform:uppercase;
+}
+.mystery-card h4{font-size:15px;font-weight:600;margin-bottom:6px;color:var(--text)}
+.mystery-card p{font-size:12px;color:var(--muted);line-height:1.6;max-width:240px;margin:0 auto}
+.mystery-card.redacted h4,.mystery-card.redacted p{color:var(--muted2);position:relative}
+.mystery-card.redacted h4::after,.mystery-card.redacted p::after{
+  content:'';position:absolute;left:0;right:0;height:60%;top:20%;
+  background:var(--muted2);border-radius:2px;opacity:.2;
+}
+.mystery-status{
+  font-size:10px;color:var(--muted2);
+  font-family:var(--font-mono);margin-top:12px;
+  letter-spacing:.06em;
+}
+.mystery-redacted-tag{
+  font-family:var(--font-mono);font-size:8px;font-weight:700;
+  color:var(--muted2);background:var(--surface3);
+  border:1px solid var(--border);
+  padding:2px 10px;border-radius:4px;
+  letter-spacing:.1em;margin-bottom:12px;display:inline-block;
+}
+
+/* ═══════════════════════════════════════════
+   EXTENSION — PRODUCT HIGHLIGHT
+   ═══════════════════════════════════════════ */
+.ext-product-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(0,255,163,0.08);
+  border:1px solid rgba(0,255,163,0.15);
+  border-radius:999px;padding:4px 14px;
+  font-size:10px;font-weight:500;color:var(--green);
+  letter-spacing:.06em;text-transform:uppercase;
+  font-family:var(--font-mono);
+}
+.ext-stats{
+  display:flex;gap:24px;margin-top:8px;
+}
+.ext-stat{text-align:center}
+.ext-stat-num{
+  font-family:var(--font-mono);font-size:16px;font-weight:700;
+  color:var(--text);display:block;
+}
+.ext-stat-lbl{font-size:10px;color:var(--muted2);text-transform:uppercase;letter-spacing:.06em}
+
+/* ═══════════════════════════════════════════
+   AI — PREMIUM REFINEMENTS
+   ═══════════════════════════════════════════ */
+.ai-visual{
+  box-shadow:0 0 80px rgba(0,255,163,0.02),inset 0 1px 0 rgba(255,255,255,0.04);
+  transition:box-shadow .4s;
+}
+.ai-visual:hover{box-shadow:0 0 100px rgba(0,255,163,0.04),inset 0 1px 0 rgba(255,255,255,0.06)}
+.ai-card-list .ai-card{
+  transition:border-color .3s,transform .3s,box-shadow .3s;
+}
+.ai-card-list .ai-card:hover{
+  border-color:rgba(0,255,163,0.2);
+  transform:translateX(6px);
+  box-shadow:0 8px 32px rgba(0,255,163,0.04);
+}
+
+/* ═══════════════════════════════════════════
+   MICRO ANIMATIONS & ENHANCED STATES
+   ═══════════════════════════════════════════ */
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+@keyframes breathe{0%,100%{opacity:.6}50%{opacity:1}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.hover-lift{transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s}
+.hover-lift:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,.3)}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE ADDITIONS
+   ═══════════════════════════════════════════ */
+@media(max-width:900px){
+  .mystery-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:600px){
+  .mystery-grid{grid-template-columns:1fr}
+  .mystery-card{padding:20px 16px}
+  .roadmap-path{min-width:660px}
+  .node-dot{width:44px;height:44px}
+  .node-dot .node-icon{font-size:16px}
+  .ext-stats{gap:16px;flex-wrap:wrap}
+}
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div class="ambient-glow"></div>
+<div class="ambient-glow-2"></div>
+
+<!-- ════ NAV ════ -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-mark">
+      <svg viewBox="0 0 24 24"><path d="M3 17l4-8 4 4 4-6 4 10H3z"/></svg>
+    </div>
+    <span class="nav-logo-text">TRENCHPAD</span>
+  </a>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#ai">AI Engine</a>
+    <a href="#extension">Extension</a>
+    <a href="#community">Community</a>
+  </div>
+  <button class="nav-cta" onclick="document.getElementById('email-in').focus()">Get Early Access</button>
+</nav>
+
+<!-- ════ HERO ════ -->
+<div class="page">
+<div class="hero" id="hero">
+  <div class="hero-left">
+    <div class="hero-badge"><span>EARLY ACCESS</span> Private Beta — Limited Slots</div>
+    <div class="hero-pill"><span class="pill-dot"></span> Launching July 3rd</div>
+    <h1>
+      The Intelligence Terminal<br>
+      for <span class="green">Solana Memecoin</span><br>
+      <span class="accent">Traders</span>
+    </h1>
+    <p class="hero-sub">
+      Real-time ranked leaderboard, AI narrative analysis, smart money wallet tracking &amp; instant contract scanning — built for the Solana trenches.
+    </p>
+
+    <!-- Countdown -->
+    <div class="hero-countdown" id="countdown">
+      <div class="cd-block"><span class="cd-num" id="cd-d">00</span><span class="cd-lbl">Days</span></div>
+      <span class="cd-sep">:</span>
+      <div class="cd-block"><span class="cd-num" id="cd-h">00</span><span class="cd-lbl">Hrs</span></div>
+      <span class="cd-sep">:</span>
+      <div class="cd-block"><span class="cd-num" id="cd-m">00</span><span class="cd-lbl">Min</span></div>
+      <span class="cd-sep">:</span>
+      <div class="cd-block"><span class="cd-num" id="cd-s">00</span><span class="cd-lbl">Sec</span></div>
+    </div>
+
+    <!-- Social Proof -->
+    <div class="social-proof">
+      <div class="social-avatars">
+        <div class="av">⚡</div>
+        <div class="av" style="margin-left:-8px">🐍</div>
+        <div class="av" style="margin-left:-8px">🔍</div>
+        <div class="av" style="margin-left:-8px">💎</div>
+        <div class="av" style="margin-left:-8px;background:var(--green-dim);color:var(--green);font-size:8px">+2k</div>
+      </div>
+      <div class="social-proof-text">
+        <strong>Early</strong> members get <strong>14 days PRO</strong> free on launch
+      </div>
+    </div>
+
+    <!-- Email -->
+    <div class="hero-email">
+      <p class="hero-email-note">Join the waitlist — <strong>14 days PRO</strong> free on launch</p>
+      <div class="email-row" id="form-row">
+        <input class="email-input" type="email" id="email-in" placeholder="your@email.com" autocomplete="email">
+        <button class="email-btn" id="email-btn">Join Waitlist</button>
+      </div>
+      <div class="email-success" id="email-ok">
+        ✓ You're on the list!<br>
+        <span style="font-size:12px;color:var(--muted)">We'll notify you the moment we launch. 14 days PRO waiting.</span>
+      </div>
+      <div class="email-error" id="email-err"></div>
+      <p class="email-fine">No spam. One email at launch. Unsubscribe anytime.</p>
+    </div>
+
+    <div class="hero-social">
+      <span class="hero-social-label">Join the community</span>
+      <div class="hero-social-icons">
+        <a href="https://discord.gg/TrenchPad" target="_blank" rel="noopener" class="hs-icon discord" aria-label="Discord">
+          <svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.043.033.054a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 13.965 13.965 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.133 13.133 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
+        </a>
+        <a href="https://twitter.com/Trenchpadd" target="_blank" rel="noopener" class="hs-icon twitter" aria-label="X (Twitter)">
+          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        <a href="https://tiktok.com/@trenchpad8" target="_blank" rel="noopener" class="hs-icon tiktok" aria-label="TikTok">
+          <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.75a8.2 8.2 0 0 0 4.79 1.52V6.83a4.85 4.85 0 0 1-1.02-.14z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="preview-frame">
+      <div class="preview-topbar">
+        <div class="preview-dot"></div>
+        <div class="preview-dot"></div>
+        <div class="preview-dot"></div>
+        <div class="preview-url">app.trenchpad.com/dashboard</div>
+      </div>
+      <div class="preview-body preview-body-mystery">
+        <div class="preview-header">
+          <h3>Premium Intelligence Suite</h3>
+          <span class="status-badge">Available at Launch</span>
+        </div>
+        <div class="mystery-panel">
+          <div class="mystery-panel-header">
+            <span class="mystery-panel-label">Live Rankings</span>
+            <span class="classified-badge">🔒 CLASSIFIED</span>
+          </div>
+          <div class="mystery-bars">
+            <div class="mystery-bar-row"><div class="mystery-bar" style="width:78%"></div></div>
+            <div class="mystery-bar-row"><div class="mystery-bar" style="width:62%"></div></div>
+            <div class="mystery-bar-row"><div class="mystery-bar" style="width:91%"></div></div>
+            <div class="mystery-bar-row"><div class="mystery-bar" style="width:45%"></div></div>
+            <div class="mystery-bar-row"><div class="mystery-bar" style="width:33%"></div></div>
+          </div>
+          <div class="mystery-footer">
+            <span class="mystery-footer-item">AI Scores</span>
+            <span class="mystery-footer-item">Narratives</span>
+            <span class="mystery-footer-item">Volume</span>
+            <span class="mystery-footer-item">Risk</span>
+          </div>
+        </div>
+        <div class="mystery-badge-row">
+          <span>🔒 Hidden Rankings</span>
+          <span>🔒 Whale Activity</span>
+          <span>🔒 Smart Money</span>
+        </div>
+        <div class="classified-overlay">
+          <div class="lock-icon">🔒</div>
+          <h4>Classified Access</h4>
+          <p>The full intelligence dashboard is under wraps until launch day</p>
+          <button class="unlock-btn" onclick="document.getElementById('email-in').focus();return false">Get Early Access</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ FEATURES ════ -->
+<section id="features">
+  <div class="section-inner">
+    <div class="section-label">Platform</div>
+    <h2 class="section-title">Everything you need to <span class="gradient">win the trench</span></h2>
+    <p class="section-sub">From instant contract scanning to smart money tracking — TrenchPad gives you the edge you've been missing.</p>
+
+    <div class="features-grid" id="features-grid">
+      <div class="feature-card" data-delay="0">
+        <div class="feature-card-icon">📊</div>
+        <h3>Ranked Leaderboard</h3>
+        <p>Real-time memecoin rankings by memetic score, volume, narrative &amp; social momentum. Filter by chain, narrative &amp; risk level.</p>
+      </div>
+      <div class="feature-card" data-delay="100">
+        <div class="feature-card-icon">🧠</div>
+        <h3>AI Narrative Analysis</h3>
+        <p>Our AI analyzes social sentiment, on-chain data &amp; whale activity to score each coin's narrative strength and virality potential.</p>
+      </div>
+      <div class="feature-card" data-delay="200">
+        <div class="feature-card-icon">🛡️</div>
+        <h3>Rug Risk Scoring</h3>
+        <p>Multi-factor risk model analyzing LP locks, holder concentration, mint authority &amp; dev wallet activity. Know before you ape.</p>
+      </div>
+      <div class="feature-card" data-delay="300">
+        <div class="feature-card-icon">👁️</div>
+        <h3>Wallet Tracker</h3>
+        <p>Follow smart money wallets. Get notified when top traders enter or exit positions. Copy trade with one click.</p>
+      </div>
+      <div class="feature-card" data-delay="400">
+        <div class="feature-card-icon">🔍</div>
+        <h3>Instant CA Scanner</h3>
+        <p>One-click contract address scanning across Axiom, DexScreener, DexTools &amp; Pump.fun. Chrome extension included.</p>
+      </div>
+      <div class="feature-card" data-delay="500">
+        <div class="feature-card-icon">📈</div>
+        <h3>Portfolio Analytics <span style="font-size:8px;color:var(--muted2);font-family:var(--font-mono);background:var(--surface3);padding:1px 6px;border-radius:4px;margin-left:6px;font-weight:400">🔒 v2</span></h3>
+        <p>Track your positions, P&amp;L, and win rate across all your Solana wallets. Detailed analytics with exportable reports.</p>
+      </div>
+      <div class="feature-card" data-delay="600" style="border-style:dashed;border-color:var(--border);background:rgba(255,255,255,0.01);cursor:default">
+        <div class="feature-card-icon" style="opacity:.3">🔒</div>
+        <h3 style="color:var(--muted2)">Hidden Module</h3>
+        <p style="color:var(--muted2)">████████████ ████████ █████ ████████ ████████ █████</p>
+        <div style="font-size:8px;color:var(--muted2);font-family:var(--font-mono);margin-top:8px;letter-spacing:.1em">🔒 CLASSIFIED · EARLY ACCESS ONLY</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ AI ENGINE ════ -->
+<section class="ai-section" id="ai">
+  <div class="section-inner">
+    <div class="section-label">AI Engine <span style="font-size:8px;color:var(--muted2);font-family:var(--font-mono);letter-spacing:0;margin-left:4px">v2</span> <span style="font-size:8px;color:var(--red);font-family:var(--font-mono);margin-left:6px;background:rgba(255,64,96,.1);padding:1px 6px;border-radius:4px">Internal</span></div>
+    <h2 class="section-title">Memetic <span class="gradient">Intelligence</span></h2>
+    <p class="section-sub">Our proprietary AI scores every memecoin across 12+ dimensions — narrative strength, virality potential, risk assessment — delivering real-time signals you won't find anywhere else.</p>
+
+    <div class="ai-grid">
+      <div class="ai-visual">
+        <div class="ai-scan-line"></div>
+        <div class="ai-metric">
+          <span class="ai-metric-label">Memetic Score</span>
+          <div class="ai-metric-bar"><div class="ai-metric-fill" style="width:0%"></div></div>
+          <span class="ai-metric-value" id="metric-memetic">0</span>
+        </div>
+        <div class="ai-metric">
+          <span class="ai-metric-label">Narrative Strength</span>
+          <div class="ai-metric-bar"><div class="ai-metric-fill social" style="width:0%"></div></div>
+          <span class="ai-metric-value" id="metric-narrative">0</span>
+        </div>
+        <div class="ai-metric">
+          <span class="ai-metric-label">Risk Assessment</span>
+          <div class="ai-metric-bar"><div class="ai-metric-fill risk" style="width:0%"></div></div>
+          <span class="ai-metric-value" id="metric-risk">0</span>
+        </div>
+        <div class="ai-metric">
+          <span class="ai-metric-label">Whale Activity</span>
+          <div class="ai-metric-bar"><div class="ai-metric-fill" style="width:0%"></div></div>
+          <span class="ai-metric-value" id="metric-whale">0</span>
+        </div>
+      </div>
+      <div class="ai-card-list">
+        <div class="ai-card" data-delay="0">
+          <h4>🧬 Memetic Analysis</h4>
+          <p>Analyzes virality potential, cultural relevance, and community engagement across 50+ data sources.</p>
+        </div>
+        <div class="ai-card" data-delay="150">
+          <h4>📡 Social Sentiment</h4>
+          <p>Real-time Twitter, Discord &amp; TikTok sentiment analysis. Tracks influencer mentions and organic reach.</p>
+        </div>
+        <div class="ai-card" data-delay="300">
+          <h4>🔗 On-Chain Signals</h4>
+          <p>Detects whale accumulation, insider wallet patterns, and sniper activity before they hit the charts.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ EXTENSION ════ -->
+<section id="extension">
+  <div class="section-inner">
+    <div class="section-label">Chrome Extension <span class="ext-product-badge">✓ Shipping Now</span></div>
+    <h2 class="section-title">TrenchPad <span class="gradient">Scout</span></h2>
+    <p class="section-sub">A standalone browser extension that turns any DEX page into a full intelligence terminal. Works on Axiom, DexScreener, DexTools, Pump.fun — and it's <strong style="color:var(--text)">already functional</strong>.</p>
+
+    <div class="ext-content">
+      <div class="ext-left">
+        <div class="ext-browser-bar">
+          <div class="ext-browser-dot"></div>
+          <div class="ext-browser-dot"></div>
+          <div class="ext-browser-dot"></div>
+          <div class="ext-browser-url">dexscreener.com/solana/...</div>
+        </div>
+        <div class="ext-preview-body">
+          <div class="ext-row">
+            <div class="ext-row-coin-icon green">🐸</div>
+            <div class="ext-row-info">
+              <div class="ext-row-name">Pepe Force</div>
+              <div class="ext-row-ticker">PEPEF</div>
+            </div>
+            <div class="ext-row-badge safe">Safe</div>
+            <div class="ext-row-score">Score: 94</div>
+          </div>
+          <div class="ext-row">
+            <div class="ext-row-coin-icon amber">🤖</div>
+            <div class="ext-row-info">
+              <div class="ext-row-name">AI Agent v2</div>
+              <div class="ext-row-ticker">AGENT</div>
+            </div>
+            <div class="ext-row-badge caution">Caution</div>
+            <div class="ext-row-score">Score: 91</div>
+          </div>
+          <div class="ext-row">
+            <div class="ext-row-coin-icon red">⚠️</div>
+            <div class="ext-row-info">
+              <div class="ext-row-name">Meme Rocket</div>
+              <div class="ext-row-ticker">MROCK</div>
+            </div>
+            <div class="ext-row-badge risk">High Risk</div>
+            <div class="ext-row-score">Score: 22</div>
+          </div>
+          <div class="ext-row">
+            <div class="ext-row-coin-icon blue">🐧</div>
+            <div class="ext-row-info">
+              <div class="ext-row-name">Sol Penguin</div>
+              <div class="ext-row-ticker">PENG</div>
+            </div>
+            <div class="ext-row-badge safe">Safe</div>
+            <div class="ext-row-score">Score: 87</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ext-features-list">
+        <div class="ext-feature-item" data-delay="0">
+          <div class="ext-feature-check"><svg viewBox="0 0 24 24"><path d="M9 16.2l-3.5-3.5L4 14.2l5 5 11-11-1.7-1.7z"/></svg></div>
+          <div class="ext-feature-text">
+            <h4>Instant CA Detection</h4>
+            <p>Automatically detects contract addresses on any DEX page — no more manual copying between tabs.</p>
+          </div>
+        </div>
+        <div class="ext-feature-item" data-delay="100">
+          <div class="ext-feature-check"><svg viewBox="0 0 24 24"><path d="M9 16.2l-3.5-3.5L4 14.2l5 5 11-11-1.7-1.7z"/></svg></div>
+          <div class="ext-feature-text">
+            <h4>One-Click Risk Score</h4>
+            <p>LP locks, holder concentration, mint authority &amp; dev wallet checks — rendered inline on the page.</p>
+          </div>
+        </div>
+        <div class="ext-feature-item" data-delay="200">
+          <div class="ext-feature-check"><svg viewBox="0 0 24 24"><path d="M9 16.2l-3.5-3.5L4 14.2l5 5 11-11-1.7-1.7z"/></svg></div>
+          <div class="ext-feature-text">
+            <h4>5 Platforms &amp; Growing</h4>
+            <p>Axiom, DexScreener, DexTools, Pump.fun, and more — one extension covers your entire research flow.</p>
+          </div>
+        </div>
+        <div class="ext-download-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="8 17 12 21 16 17"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.88 18.09A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.29"/></svg>
+          <span>Available on <strong>Chrome Web Store</strong> — free with Early Access</span>
+        </div>
+        <a href="#" class="ext-cta" onclick="document.getElementById('email-in').focus();return false">
+          Get Early Access
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ ROADMAP ════ -->
+<section>
+  <div class="section-inner">
+    <div class="section-label">Roadmap</div>
+    <h2 class="section-title">Product <span class="gradient">Evolution</span></h2>
+    <p class="section-sub">From launch to ecosystem — here's the path we're building. Early adopters shape the direction.</p>
+
+    <div class="roadmap-scroll">
+      <div class="roadmap-path">
+        <div class="path-node active" data-delay="0">
+          <div class="node-dot"><div class="node-icon">🚀</div></div>
+          <div class="node-info">
+            <div class="node-phase">Phase 1</div>
+            <h4>Platform Launch</h4>
+            <div class="node-date">July 3rd 2026</div>
+            <div class="node-badge launch">Available at Launch</div>
+            <div class="node-features">
+              <span>Leaderboard</span>
+              <span>AI Engine</span>
+              <span>CA Scanner</span>
+              <span>Wallet Tracker</span>
+            </div>
+          </div>
+        </div>
+        <div class="path-node" data-delay="120">
+          <div class="node-dot"><div class="node-icon">🔍</div></div>
+          <div class="node-info">
+            <div class="node-phase">Phase 2</div>
+            <h4>Chrome Extension</h4>
+            <div class="node-date">Q3 2026</div>
+            <div class="node-badge testing">Internal Testing</div>
+            <div class="node-features">
+              <span>Instant CA Scan</span>
+              <span>Risk Scoring</span>
+              <span>Multi-DEX</span>
+            </div>
+          </div>
+        </div>
+        <div class="path-node" data-delay="240">
+          <div class="node-dot"><div class="node-icon">🐦</div></div>
+          <div class="node-info">
+            <div class="node-phase">Phase 3</div>
+            <h4>Twitter Tracking</h4>
+            <div class="node-date">Q3 2026</div>
+            <div class="node-badge dev">In Development</div>
+            <div class="node-features">
+              <span>Influencer Monitor</span>
+              <span>Sentiment Analysis</span>
+              <span>Trend Detection</span>
+            </div>
+          </div>
+        </div>
+        <div class="path-node" data-delay="360">
+          <div class="node-dot"><div class="node-icon">📱</div></div>
+          <div class="node-info">
+            <div class="node-phase">Phase 4</div>
+            <h4>Mobile App</h4>
+            <div class="node-date">Q4 2026</div>
+            <div class="node-badge soon">Coming Soon</div>
+            <div class="node-features">
+              <span>iOS &amp; Android</span>
+              <span>Push Alerts</span>
+              <span>Widgets</span>
+            </div>
+          </div>
+        </div>
+        <div class="path-node" data-delay="480">
+          <div class="node-dot"><div class="node-icon">🤖</div></div>
+          <div class="node-info">
+            <div class="node-phase">Phase 5</div>
+            <h4>Telegram Bot</h4>
+            <div class="node-date">Q1 2027</div>
+            <div class="node-badge soon">Coming Soon</div>
+            <div class="node-features">
+              <span>Live Alerts</span>
+              <span>CA Scanner</span>
+              <span>Trending</span>
+            </div>
+          </div>
+        </div>
+        <div class="path-node" data-delay="600">
+          <div class="node-dot"><div class="node-icon">🏛️</div></div>
+          <div class="node-info">
+            <div class="node-phase">Phase 6</div>
+            <h4>Trading Platform</h4>
+            <div class="node-date">2027</div>
+            <div class="node-badge classified">Classified</div>
+            <div class="node-features">
+              <span>████████</span>
+              <span>████████</span>
+              <span>████████</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ MYSTERY / CLASSIFIED ════ -->
+<section class="mystery-section">
+  <div class="section-inner">
+    <div class="section-label">Classified <span style="font-size:8px;color:var(--red);font-family:var(--font-mono);background:rgba(255,64,96,.1);padding:1px 6px;border-radius:4px;margin-left:4px">Internal</span></div>
+    <h2 class="section-title">Hidden <span class="gradient">Intelligence</span></h2>
+    <p class="section-sub">Features in development that we're not ready to show yet. Early adopters get exclusive access before anyone else.</p>
+
+    <div class="mystery-grid" id="mystery-grid">
+      <div class="mystery-card" data-delay="0">
+        <span class="mystery-icon">🤖</span>
+        <div class="mystery-classified-tag">Classified</div>
+        <h4>AI Trading Agent</h4>
+        <p>Automated narrative-based execution with real-time risk management</p>
+        <div class="mystery-status">Q4 2026</div>
+      </div>
+      <div class="mystery-card" data-delay="100">
+        <span class="mystery-icon">🧠</span>
+        <div class="mystery-classified-tag">Classified</div>
+        <h4>Social Intelligence</h4>
+        <p>Cross-platform influencer tracking &amp; community sentiment analysis</p>
+        <div class="mystery-status">Q1 2027</div>
+      </div>
+      <div class="mystery-card" data-delay="200">
+        <span class="mystery-icon">📊</span>
+        <div class="mystery-classified-tag">Classified</div>
+        <h4>Portfolio AI</h4>
+        <p>Automated portfolio optimization with AI-driven rebalancing signals</p>
+        <div class="mystery-status">TBA</div>
+      </div>
+      <div class="mystery-card redacted" data-delay="300">
+        <div class="mystery-redacted-tag">[REDACTED]</div>
+        <h4>██████████</h4>
+        <p>████████████████████████████████████</p>
+        <div class="mystery-status">████</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ COMMUNITY ════ -->
+<section class="social-section" id="community">
+  <div class="section-inner">
+    <div class="social-inner">
+      <div class="section-label">Community</div>
+      <h2>Join the <span class="gradient">Trench</span></h2>
+      <p>Be part of the sharpest trading community on Solana. Early members get exclusive perks.</p>
+      <div class="social-buttons">
+        <a href="https://discord.gg/TrenchPad" target="_blank" rel="noopener" class="social-btn discord">
+          <svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.043.033.054a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 13.965 13.965 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.133 13.133 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
+          Discord
+        </a>
+        <a href="https://twitter.com/Trenchpadd" target="_blank" rel="noopener" class="social-btn twitter">
+          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          X (Twitter)
+        </a>
+        <a href="https://tiktok.com/@trenchpad8" target="_blank" rel="noopener" class="social-btn tiktok">
+          <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.75a8.2 8.2 0 0 0 4.79 1.52V6.83a4.85 4.85 0 0 1-1.02-.14z"/></svg>
+          TikTok
+        </a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2026 TrenchPad &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a>
+    </div>
+  </div>
+</section>
+
+</div><!-- /page -->
+
+<script>
+/* ═══════════════════════════════════════════
+   COUNTDOWN — Live dynamic countdown
+   ═══════════════════════════════════════════ */
+(function(){
+  const launchDate = new Date('2026-07-03T20:00:00Z'); // July 3, 2026 22:00 CEST = 20:00 UTC
+  const els = {
+    d: document.getElementById('cd-d'),
+    h: document.getElementById('cd-h'),
+    m: document.getElementById('cd-m'),
+    s: document.getElementById('cd-s')
+  };
+  function pad(n){return n.toString().padStart(2,'0')}
+  function tick(){
+    var diff = Math.max(0, launchDate - new Date());
+    var d = Math.floor(diff / 86400000);
+    var h = Math.floor((diff % 86400000) / 3600000);
+    var m = Math.floor((diff % 3600000) / 60000);
+    var s = Math.floor((diff % 60000) / 1000);
+    els.d.textContent = pad(d);
+    els.h.textContent = pad(h);
+    els.m.textContent = pad(m);
+    els.s.textContent = pad(s);
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
+
+/* ═══════════════════════════════════════════
+   EMAIL — Loops.so integration
+   ═══════════════════════════════════════════ */
+(function(){
+  var inp = document.getElementById('email-in');
+  var btn = document.getElementById('email-btn');
+  var formRow = document.getElementById('form-row');
+  var okDiv = document.getElementById('email-ok');
+  var errDiv = document.getElementById('email-err');
+
+  var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  function validate(email){
+    if(!email || email.length > 254) return false;
+    return emailRegex.test(email);
+  }
+
+  async function submitEmail(){
+    var email = inp.value.trim();
+    if(!validate(email)){
+      inp.style.borderColor = 'rgba(255,64,96,.5)';
+      errDiv.textContent = 'Please enter a valid email address.';
+      errDiv.style.display = 'block';
+      setTimeout(function(){inp.style.borderColor = ''}, 1500);
+      return;
+    }
+    errDiv.style.display = 'none';
+    btn.disabled = true;
+    btn.textContent = 'Joining...';
+
+    try{
+      var r = await fetch('https://app.loops.so/api/newsletter-form/cmqpiw8cf04280j00e13byx5o',{
+        method:'POST',
+        headers:{'Content-Type':'application/x-www-form-urlencoded'},
+        body:'email='+encodeURIComponent(email)
+      });
+      var data = await r.json();
+      if(r.ok && data.success){
+        formRow.style.display = 'none';
+        okDiv.style.display = 'block';
+        
+      } else {
+        throw new Error(data.message || 'Subscription failed');
+      }
+    }catch(e){
+      btn.disabled = false;
+      btn.textContent = 'Join Waitlist';
+      errDiv.textContent = e.message || 'Something went wrong. Please try again.';
+      errDiv.style.display = 'block';
+    }
+  }
+
+  btn.addEventListener('click', submitEmail);
+  inp.addEventListener('keydown', function(e){
+    if(e.key === 'Enter') submitEmail();
+  });
+})();
+
+/* ═══════════════════════════════════════════
+   SCROLL REVEAL — Intersection Observer
+   ═══════════════════════════════════════════ */
+(function(){
+  if(!('IntersectionObserver' in window)) return;
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        var el = entry.target;
+        var delay = parseInt(el.getAttribute('data-delay')) || 0;
+        setTimeout(function(){
+          el.classList.add('visible');
+        }, delay);
+        observer.unobserve(el);
+      }
+    });
+  }, {threshold: 0.15});
+
+  document.querySelectorAll('.feature-card, .ai-card, .ext-feature-item, .mystery-card, .path-node').forEach(function(el){
+    observer.observe(el);
+  });
+})();
+
+/* ═══════════════════════════════════════════
+   AI METRICS — Animated bars on scroll
+   ═══════════════════════════════════════════ */
+(function(){
+  var targets = {
+    'metric-memetic': { value: 94, el: null, bar: null },
+    'metric-narrative': { value: 88, el: null, bar: null },
+    'metric-risk': { value: 26, el: null, bar: null },
+    'metric-whale': { value: 72, el: null, bar: null }
+  };
+  var ids = Object.keys(targets);
+  ids.forEach(function(id){
+    targets[id].el = document.getElementById(id);
+    targets[id].bar = targets[id].el ? targets[id].el.previousElementSibling.querySelector('.ai-metric-fill') : null;
+  });
+
+  if(!('IntersectionObserver' in window)) return;
+  var animated = false;
+  var obs = new IntersectionObserver(function(entries){
+    if(animated) return;
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        animated = true;
+        ids.forEach(function(id){
+          var t = targets[id];
+          if(t.bar) t.bar.style.width = t.value + '%';
+          if(t.el) t.el.textContent = t.value;
+        });
+        obs.disconnect();
+      }
+    });
+  }, {threshold: 0.3});
+
+  var container = document.querySelector('.ai-visual');
+  if(container) obs.observe(container);
+})();
+
+/* ═══════════════════════════════════════════
+   SMOOTH SCROLL for nav links
+   ═══════════════════════════════════════════ */
+document.querySelectorAll('a[href^="#"]').forEach(function(a){
+  a.addEventListener('click', function(e){
+    var target = document.querySelector(this.getAttribute('href'));
+    if(target){
+      e.preventDefault();
+      target.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+  });
+});
+</script>
+</body>
+</html>
